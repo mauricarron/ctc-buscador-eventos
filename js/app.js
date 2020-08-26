@@ -12,12 +12,21 @@ document.querySelector("input#buscarBtn").addEventListener("click", (e) => {
   const classificationId =
     $inputCategoria.options[$inputCategoria.selectedIndex].value;
 
+  UI.limpiarResultados();
   if (keyword !== "") {
     API.obtenerResultados(keyword, classificationId).then((response) => {
-      console.log(response);
+      if (response.page.totalElements > 0) {
+        UI.imprimirResultados(response);
+      } else {
+        UI.mostrarMensaje(
+          "No se encontraron resultados",
+          "alert alert-warning mt-4"
+        );
+      }
     });
   } else {
     API.obtenerResultadoSugerido().then((response) => {
+      UI.imprimirResultados(response);
       console.log(response);
     });
   }

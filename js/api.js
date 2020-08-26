@@ -1,7 +1,7 @@
 class Api {
   constructor(apikey) {
     this.apikey = apikey;
-    this.ordenar = "date";
+    this.ordenar = "date,asc";
   }
   async obtenerCategorias() {
     const responseClassifications = await fetch(
@@ -12,16 +12,16 @@ class Api {
   }
   async obtenerResultados(keyword, classification) {
     const responseBusqueda = await fetch(
-      `https://app.ticketmaster.com/discovery/v2/events?keyword=${keyword}&classificationId=${classification}&apikey=${this.apikey}`
+      `https://app.ticketmaster.com/discovery/v2/events?sort=${this.ordenar}&keyword=${keyword}&classificationId=${classification}&apikey=${this.apikey}`
     );
     const resultadoEventos = await responseBusqueda.json();
     return resultadoEventos;
   }
   async obtenerResultadoSugerido() {
-    const resposeSugerido = await fetch(
-      `https://app.ticketmaster.com/discovery/v2/suggest?apikey=${this.apikey}`
+    const responseSugerido = await fetch(
+      `https://app.ticketmaster.com/discovery/v2/suggest?sort=${this.ordenar}&apikey=${this.apikey}`
     );
-    const resultadoSugerido = resposeSugerido.json();
+    const resultadoSugerido = responseSugerido.json();
     return resultadoSugerido;
   }
 }
