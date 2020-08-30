@@ -1,4 +1,4 @@
-# Cotizador de Criptomonedas
+# Buscador de eventos
 
 ## ⭐ Acerca del Proyecto
 
